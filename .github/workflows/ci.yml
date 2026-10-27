@@ -70,8 +70,11 @@ jobs:
         with:
           working-directory: frontend
           install: false
-          start: npm run dev
-          wait-on: 'http://localhost:5173'
+          # On force l'adresse IPv4 pour que Vite, l'attente et Cypress utilisent la même
+          start: npm run dev -- --host 127.0.0.1 --port 5173 --strictPort
+          wait-on: 'http://127.0.0.1:5173'
+          wait-on-timeout: 120
+          config: baseUrl=http://127.0.0.1:5173
 
       - name: Garder les captures en cas d'échec
         if: failure()
