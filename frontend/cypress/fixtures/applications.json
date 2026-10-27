@@ -1,0 +1,48 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "company": "Externatic",
+      "position": "Développeuse Fullstack PHP React",
+      "location": "Montreuil",
+      "url": "https://www.hellowork.com/fr-fr/emplois/84500938.html",
+      "status": "interview",
+      "applied_at": "2026-10-23",
+      "notes": "Entretien technique prévu jeudi",
+      "needs_follow_up": false,
+      "created_at": "2026-10-23T10:00:00+00:00",
+      "updated_at": "2026-10-23T10:00:00+00:00"
+    },
+    {
+      "id": 2,
+      "company": "Hays",
+      "position": "Développeuse Fullstack Laravel - React",
+      "location": "Strasbourg",
+      "url": null,
+      "status": "sent",
+      "applied_at": "2026-10-16",
+      "notes": null,
+      "needs_follow_up": true,
+      "created_at": "2026-10-16T10:00:00+00:00",
+      "updated_at": "2026-10-16T10:00:00+00:00"
+    },
+    {
+      "id": 3,
+      "company": "Acensi",
+      "position": "Développeuse PHP",
+      "location": "Paris",
+      "url": null,
+      "status": "rejected",
+      "applied_at": "2026-10-20",
+      "notes": null,
+      "needs_follow_up": false,
+      "created_at": "2026-10-20T10:00:00+00:00",
+      "updated_at": "2026-10-26T10:00:00+00:00"
+    }
+  ],
+  "meta": {
+    "current_page": 1,
+    "last_page": 1,
+    "total": 3
+  }
+}
