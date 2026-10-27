@@ -28,6 +28,9 @@ class JobApplicationResource extends JsonResource
             'applied_at' => $this->applied_at?->toDateString(),
             'notes' => $this->notes,
             'needs_follow_up' => $this->needsFollowUp(),
+            'offer_text' => $this->offer_text,
+            'analysis' => $this->analysis,
+            'analyzed_at' => $this->analyzed_at?->toIso8601String(),
             'created_at' => $this->created_at?->toIso8601String(),
             'updated_at' => $this->updated_at?->toIso8601String(),
         ];

@@ -20,6 +20,9 @@ use Illuminate\Support\Carbon;
  * @property ApplicationStatus $status
  * @property Carbon|null $applied_at
  * @property string|null $notes
+ * @property string|null $offer_text
+ * @property array{score: int, summary: string, matching_skills: list<string>, missing_skills: list<string>}|null $analysis
+ * @property Carbon|null $analyzed_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
@@ -51,6 +54,8 @@ class JobApplication extends Model
         return [
             'status' => ApplicationStatus::class,
             'applied_at' => 'date',
+            'analysis' => 'array',
+            'analyzed_at' => 'datetime',
         ];
     }
 
