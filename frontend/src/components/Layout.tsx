@@ -1,6 +1,10 @@
+import { Outlet } from 'react-router'
 import { useAuth } from '../auth/useAuth'
 
-export function DashboardPage() {
+/**
+ * Mise en page des pages connectées : barre du haut + contenu de la page.
+ */
+export function Layout() {
   const { user, logout } = useAuth()
 
   return (
@@ -9,7 +13,7 @@ export function DashboardPage() {
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
           <span className="text-lg font-bold text-indigo-600">CandiTrack</span>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-slate-600">{user?.name}</span>
+            <span className="hidden text-sm text-slate-600 sm:inline">{user?.name}</span>
             <button
               onClick={logout}
               className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm hover:bg-slate-100"
@@ -20,11 +24,8 @@ export function DashboardPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-4 py-10">
-        <h1 className="text-2xl font-bold">Bonjour {user?.name} 👋</h1>
-        <p className="mt-2 text-slate-600">
-          La liste de tes candidatures arrive à la prochaine étape.
-        </p>
+      <main className="mx-auto max-w-5xl px-4 py-8">
+        <Outlet />
       </main>
     </div>
   )

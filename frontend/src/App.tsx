@@ -1,7 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import { AuthProvider } from './auth/AuthProvider'
+import { Layout } from './components/Layout'
 import { GuestRoute, ProtectedRoute } from './components/RouteGuards'
-import { DashboardPage } from './pages/DashboardPage'
+import { ApplicationsPage } from './pages/ApplicationsPage'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
 
@@ -16,7 +17,9 @@ export default function App() {
           </Route>
 
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<DashboardPage />} />
+            <Route element={<Layout />}>
+              <Route path="/" element={<ApplicationsPage />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
