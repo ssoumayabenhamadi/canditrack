@@ -65,16 +65,14 @@ jobs:
       - name: Compiler le projet (TypeScript + Vite)
         run: npm run build
 
+      - name: Démarrer le site compilé
+        run: npm run preview -- --host 127.0.0.1 --port 5173 --strictPort > vite.log 2>&1 &
+
+      - name: Attendre que le site réponde
+        run: npx wait-on http://127.0.0.1:5173 --timeout 60000 || (cat vite.log; exit 1)
+
       - name: Lancer les tests Cypress
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: frontend
-          install: false
-          # On force l'adresse IPv4 pour que Vite, l'attente et Cypress utilisent la même
-          start: npm run dev -- --host 127.0.0.1 --port 5173 --strictPort
-          wait-on: 'http://127.0.0.1:5173'
-          wait-on-timeout: 120
-          config: baseUrl=http://127.0.0.1:5173
+        run: npx cypress run --config baseUrl=http://127.0.0.1:5173
 
       - name: Garder les captures en cas d'échec
         if: failure()
