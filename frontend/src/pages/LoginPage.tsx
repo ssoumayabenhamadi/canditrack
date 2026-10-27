@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router'
 import { useAuth } from '../auth/useAuth'
 import { AuthCard } from '../components/AuthCard'
@@ -8,6 +9,7 @@ import { ApiError } from '../lib/api'
 export function LoginPage() {
   const { login } = useAuth()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -23,18 +25,18 @@ export function LoginPage() {
       await login(email, password)
       navigate('/')
     } catch (error) {
-      setErrors(error instanceof ApiError ? error.errors : { email: ['Une erreur est survenue.'] })
+      setErrors(error instanceof ApiError ? error.errors : { email: [t('errors.generic')] })
     } finally {
       setSubmitting(false)
     }
   }
 
   return (
-    <AuthCard title="Connexion">
+    <AuthCard title={t('auth.login.title')}>
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         <FormField
           id="email"
-          label="Email"
+          label={t('auth.fields.email')}
           type="email"
           autoComplete="email"
           value={email}
@@ -44,7 +46,7 @@ export function LoginPage() {
         />
         <FormField
           id="password"
-          label="Mot de passe"
+          label={t('auth.fields.password')}
           type="password"
           autoComplete="current-password"
           value={password}
@@ -57,14 +59,14 @@ export function LoginPage() {
           disabled={submitting}
           className="w-full rounded-lg bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700 disabled:opacity-60"
         >
-          {submitting ? 'Connexion…' : 'Se connecter'}
+          {submitting ? t('auth.login.submitting') : t('auth.login.submit')}
         </button>
       </form>
 
       <p className="mt-6 text-center text-sm text-slate-600">
-        Pas encore de compte ?{' '}
+        {t('auth.login.noAccount')}{' '}
         <Link to="/register" className="font-semibold text-indigo-600 hover:underline">
-          Créer un compte
+          {t('auth.login.register')}
         </Link>
       </p>
     </AuthCard>

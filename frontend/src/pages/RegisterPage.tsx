@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router'
 import { useAuth } from '../auth/useAuth'
 import { AuthCard } from '../components/AuthCard'
@@ -8,6 +9,7 @@ import { ApiError } from '../lib/api'
 export function RegisterPage() {
   const { register } = useAuth()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const [form, setForm] = useState({
     name: '',
@@ -30,18 +32,18 @@ export function RegisterPage() {
       await register(form)
       navigate('/')
     } catch (error) {
-      setErrors(error instanceof ApiError ? error.errors : { email: ['Une erreur est survenue.'] })
+      setErrors(error instanceof ApiError ? error.errors : { email: [t('errors.generic')] })
     } finally {
       setSubmitting(false)
     }
   }
 
   return (
-    <AuthCard title="Créer un compte">
+    <AuthCard title={t('auth.register.title')}>
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         <FormField
           id="name"
-          label="Nom"
+          label={t('auth.fields.name')}
           autoComplete="name"
           value={form.name}
           onChange={update('name')}
@@ -50,7 +52,7 @@ export function RegisterPage() {
         />
         <FormField
           id="email"
-          label="Email"
+          label={t('auth.fields.email')}
           type="email"
           autoComplete="email"
           value={form.email}
@@ -60,7 +62,7 @@ export function RegisterPage() {
         />
         <FormField
           id="password"
-          label="Mot de passe (8 caractères minimum)"
+          label={t('auth.fields.passwordHint')}
           type="password"
           autoComplete="new-password"
           value={form.password}
@@ -70,7 +72,7 @@ export function RegisterPage() {
         />
         <FormField
           id="password_confirmation"
-          label="Confirmer le mot de passe"
+          label={t('auth.fields.passwordConfirmation')}
           type="password"
           autoComplete="new-password"
           value={form.password_confirmation}
@@ -82,14 +84,14 @@ export function RegisterPage() {
           disabled={submitting}
           className="w-full rounded-lg bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700 disabled:opacity-60"
         >
-          {submitting ? 'Création…' : 'Créer mon compte'}
+          {submitting ? t('auth.register.submitting') : t('auth.register.submit')}
         </button>
       </form>
 
       <p className="mt-6 text-center text-sm text-slate-600">
-        Déjà un compte ?{' '}
+        {t('auth.register.hasAccount')}{' '}
         <Link to="/login" className="font-semibold text-indigo-600 hover:underline">
-          Se connecter
+          {t('auth.register.login')}
         </Link>
       </p>
     </AuthCard>

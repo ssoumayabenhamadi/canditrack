@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Navigate, Outlet } from 'react-router'
 import { useAuth } from '../auth/useAuth'
 
@@ -6,9 +7,10 @@ import { useAuth } from '../auth/useAuth'
  */
 export function ProtectedRoute() {
   const { user, loading } = useAuth()
+  const { t } = useTranslation()
 
   if (loading) {
-    return <p className="p-8 text-center text-slate-500">Chargement…</p>
+    return <p className="p-8 text-center text-slate-500">{t('common.loading')}</p>
   }
 
   return user ? <Outlet /> : <Navigate to="/login" replace />
@@ -19,9 +21,10 @@ export function ProtectedRoute() {
  */
 export function GuestRoute() {
   const { user, loading } = useAuth()
+  const { t } = useTranslation()
 
   if (loading) {
-    return <p className="p-8 text-center text-slate-500">Chargement…</p>
+    return <p className="p-8 text-center text-slate-500">{t('common.loading')}</p>
   }
 
   return user ? <Navigate to="/" replace /> : <Outlet />

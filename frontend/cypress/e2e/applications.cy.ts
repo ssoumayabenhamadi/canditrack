@@ -105,4 +105,23 @@ describe('Candidatures', () => {
     cy.wait('@delete')
     cy.get('@list.all').should('have.length', 2)
   })
+
+  it('traduit l’interface en anglais et garde ce choix', () => {
+    cy.contains('button', 'EN').click()
+
+    cy.contains('h1', 'My applications').should('be.visible')
+    cy.contains('button', 'New application').should('be.visible')
+    cy.contains('li', 'Hays').within(() => {
+      cy.contains('Sent').should('be.visible')
+      cy.contains('Follow up').should('be.visible')
+    })
+    cy.get('html').should('have.attr', 'lang', 'en')
+
+    // Après rechargement de la page, l'anglais est conservé
+    cy.reload()
+    cy.contains('h1', 'My applications').should('be.visible')
+
+    cy.contains('button', 'FR').click()
+    cy.contains('h1', 'Mes candidatures').should('be.visible')
+  })
 })

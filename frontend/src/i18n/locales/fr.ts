@@ -1,0 +1,75 @@
+const fr = {
+  common: {
+    loading: 'Chargement…',
+    cancel: 'Annuler',
+    save: 'Enregistrer',
+    saving: 'Enregistrement…',
+    edit: 'Modifier',
+    delete: 'Supprimer',
+    logout: 'Déconnexion',
+  },
+  errors: {
+    generic: 'Une erreur est survenue.',
+    loadApplications: 'Impossible de charger les candidatures.',
+  },
+  auth: {
+    fields: {
+      name: 'Nom',
+      email: 'Email',
+      password: 'Mot de passe',
+      passwordHint: 'Mot de passe (8 caractères minimum)',
+      passwordConfirmation: 'Confirmer le mot de passe',
+    },
+    login: {
+      title: 'Connexion',
+      submit: 'Se connecter',
+      submitting: 'Connexion…',
+      noAccount: 'Pas encore de compte ?',
+      register: 'Créer un compte',
+    },
+    register: {
+      title: 'Créer un compte',
+      submit: 'Créer mon compte',
+      submitting: 'Création…',
+      hasAccount: 'Déjà un compte ?',
+      login: 'Se connecter',
+    },
+  },
+  applications: {
+    title: 'Mes candidatures',
+    total: '{{count}} au total',
+    new: '+ Nouvelle candidature',
+    all: 'Toutes',
+    empty: 'Aucune candidature pour le moment.',
+    appliedOn: 'Candidature du {{date}}',
+    viewOffer: "Voir l'offre",
+    followUp: 'À relancer',
+    confirmDelete: 'Supprimer la candidature chez {{company}} ?',
+    previous: '← Précédent',
+    next: 'Suivant →',
+    page: 'Page {{current}} / {{last}}',
+    form: {
+      createTitle: 'Nouvelle candidature',
+      editTitle: 'Modifier la candidature',
+      company: 'Entreprise *',
+      position: 'Poste *',
+      location: 'Lieu',
+      appliedAt: 'Date de candidature',
+      url: "Lien de l'offre",
+      status: 'Statut',
+      notes: 'Notes',
+    },
+  },
+  status: {
+    to_apply: 'À postuler',
+    sent: 'Envoyée',
+    interview: 'Entretien',
+    offer: 'Offre',
+    rejected: 'Refus',
+  },
+  language: {
+    label: 'Langue',
+  },
+}
+
+export default fr

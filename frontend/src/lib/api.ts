@@ -1,3 +1,5 @@
+import i18n from '../i18n'
+
 const TOKEN_KEY = 'canditrack_token'
 
 /**
@@ -29,6 +31,7 @@ export class ApiError extends Error {
 export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
   const headers = new Headers(options.headers)
   headers.set('Accept', 'application/json')
+  headers.set('Accept-Language', i18n.language)
 
   if (options.body) {
     headers.set('Content-Type', 'application/json')
@@ -50,7 +53,7 @@ export async function api<T>(path: string, options: RequestInit = {}): Promise<T
   if (!response.ok) {
     throw new ApiError(
       response.status,
-      data.message ?? 'Une erreur est survenue.',
+      data.message ?? i18n.t('errors.generic'),
       data.errors ?? {},
     )
   }

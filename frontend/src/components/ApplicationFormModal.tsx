@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { applicationsApi } from '../lib/applications'
 import { ApiError } from '../lib/api'
 import { STATUSES } from '../lib/status'
@@ -17,6 +18,7 @@ const today = () => new Date().toISOString().slice(0, 10)
  * Fenêtre de création ou de modification d'une candidature.
  */
 export function ApplicationFormModal({ application, onClose, onSaved }: Props) {
+  const { t } = useTranslation()
   const [form, setForm] = useState<JobApplicationInput>({
     company: application?.company ?? '',
     position: application?.position ?? '',
@@ -47,7 +49,7 @@ export function ApplicationFormModal({ application, onClose, onSaved }: Props) {
       }
       onSaved()
     } catch (error) {
-      setErrors(error instanceof ApiError ? error.errors : { company: ['Une erreur est survenue.'] })
+      setErrors(error instanceof ApiError ? error.errors : { company: [t('errors.generic')] })
     } finally {
       setSubmitting(false)
     }
@@ -62,20 +64,20 @@ export function ApplicationFormModal({ application, onClose, onSaved }: Props) {
         className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-6 shadow-xl"
       >
         <h2 id="form-title" className="mb-4 text-xl font-bold">
-          {application ? 'Modifier la candidature' : 'Nouvelle candidature'}
+          {application ? t('applications.form.editTitle') : t('applications.form.createTitle')}
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
           <FormField
             id="company"
-            label="Entreprise *"
+            label={t('applications.form.company')}
             value={form.company}
             onChange={update('company')}
             error={errors.company?.[0]}
           />
           <FormField
             id="position"
-            label="Poste *"
+            label={t('applications.form.position')}
             value={form.position}
             onChange={update('position')}
             error={errors.position?.[0]}
@@ -84,14 +86,14 @@ export function ApplicationFormModal({ application, onClose, onSaved }: Props) {
           <div className="grid gap-4 sm:grid-cols-2">
             <FormField
               id="location"
-              label="Lieu"
+              label={t('applications.form.location')}
               value={form.location}
               onChange={update('location')}
               error={errors.location?.[0]}
             />
             <FormField
               id="applied_at"
-              label="Date de candidature"
+              label={t('applications.form.appliedAt')}
               type="date"
               value={form.applied_at}
               onChange={update('applied_at')}
@@ -101,7 +103,7 @@ export function ApplicationFormModal({ application, onClose, onSaved }: Props) {
 
           <FormField
             id="url"
-            label="Lien de l'offre"
+            label={t('applications.form.url')}
             type="url"
             placeholder="https://"
             value={form.url}
@@ -111,7 +113,7 @@ export function ApplicationFormModal({ application, onClose, onSaved }: Props) {
 
           <div className="space-y-1">
             <label htmlFor="status" className="block text-sm font-medium text-slate-700">
-              Statut
+              {t('applications.form.status')}
             </label>
             <select
               id="status"
@@ -121,7 +123,7 @@ export function ApplicationFormModal({ application, onClose, onSaved }: Props) {
             >
               {STATUSES.map((status) => (
                 <option key={status.value} value={status.value}>
-                  {status.label}
+                  {t(`status.${status.value}`)}
                 </option>
               ))}
             </select>
@@ -129,7 +131,7 @@ export function ApplicationFormModal({ application, onClose, onSaved }: Props) {
 
           <div className="space-y-1">
             <label htmlFor="notes" className="block text-sm font-medium text-slate-700">
-              Notes
+              {t('applications.form.notes')}
             </label>
             <textarea
               id="notes"
@@ -146,14 +148,14 @@ export function ApplicationFormModal({ application, onClose, onSaved }: Props) {
               onClick={onClose}
               className="rounded-lg border border-slate-300 px-4 py-2 hover:bg-slate-100"
             >
-              Annuler
+              {t('common.cancel')}
             </button>
             <button
               type="submit"
               disabled={submitting}
               className="rounded-lg bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700 disabled:opacity-60"
             >
-              {submitting ? 'Enregistrement…' : 'Enregistrer'}
+              {submitting ? t('common.saving') : t('common.save')}
             </button>
           </div>
         </form>
